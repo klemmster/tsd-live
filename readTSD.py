@@ -29,17 +29,20 @@ class TSPublisher(WampServerProtocol):
 
 
 class TSClient(WampClientProtocol):
-    #TODO: Embedd serialClient
     def onSessionOpen(self):
         print "Open Session"
-        self.sendTSDEvent(random.random())
+        self._dataInput = SerialPort(SerialClient(self.sendTSDEvent),'COM4', reactor,
+                baudrate='9600')
 
     def sendTSDEvent(self, event):
         self.publish("http://coding-reality.de/tsd-event", event)
-        reactor.callLater(0.1, self.sendTSDEvent, random.random())
 
 
 class SerialClient(Protocol):
+    def __init__(self, publishCB):
+        self._publish = publishCB
+        super(SerialClient, self).__init__()
+
     def connectionFailed(self):
         log.err("Connection failed")
         reactor.stop()
@@ -54,32 +57,19 @@ class SerialClient(Protocol):
         self.transport.write(cmd)
 
     def dataReceived(self, data):
-        log.msg("dataReceived")
+        reactor.callLater(0, self.sendCMD, 'GET')
         data_ = ""
         for val in data:
             data_ += "%s : " % ord(val)
         log.msg(data_)
-        reactor.callLater(0, self.sendCMD, 'GET')
+        self._publish(data_[2])
 
     def lineReceived(self, line):
         log.msg("Line Received")
         log.msg(line)
 
 
-class SerialComm(object):
-    pass
-
-
-class TSD(object):
-    pass
-
-
-class Device(object):
-    pass
-
-
 if __name__ == '__main__':
-    #SerialPort(SerialClient(),'COM4', reactor, baudrate='9600')
     ##Setup Server
     wampServerFactory = WampServerFactory("ws://localhost:9000")
     wampServerFactory.protocol = TSPublisher
