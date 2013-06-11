@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import struct
 import sys
 import random
 
@@ -17,6 +18,7 @@ from twisted.internet.protocol import Protocol, Factory
 from twisted.web.server import Site
 from twisted.web.static import File
 from twisted.python import log
+from twisted.protocols.policies import TimeoutMixin
 
 log.startLogging(sys.stdout)
 
@@ -31,38 +33,89 @@ class TSPublisher(WampServerProtocol):
 class TSClient(WampClientProtocol):
     def onSessionOpen(self):
         print "Open Session"
-        self._dataInput = SerialPort(SerialClient(self.sendTSDEvent),'COM4', reactor,
-                baudrate='9600')
+        self._initSerialPort()
+
+    def _initSerialPort(self):
+        try:
+            serialClient = SerialClient(self.sendTSDEvent, self.resetConnection)
+            self._dataInput = MySerialPort(serialClient, 'COM4', reactor,
+                    baudrate='9600')
+            reactor.callLater(2, serialClient.setTimeout, 1)
+        except Exception:
+            log.err("Can't open COM4")
+            reactor.callLater(5, self._initSerialPort)
+            self._dataInput = None
 
     def sendTSDEvent(self, event):
         self.publish("http://coding-reality.de/tsd-event", event)
 
+    def resetConnection(self):
+        if self._dataInput:
+            self._dataInput.loseConnection()
+            self._dataInput.stopConsuming()
+            self._dataInput.stopProducing()
+            self._dataInput = None
+        reactor.callLater(1, self._initSerialPort)
 
-class SerialClient(Protocol):
-    def __init__(self, publishCB):
+
+class Packet(object):
+    def __init__(self, data):
+        self.clientID = struct.unpack_from("<h", data, 0)[0]
+        self.type_ = struct.unpack_from("B", data, 2)[0]
+        self.timestamp = struct.unpack_from("f", data, 3)[0]
+        self.data = struct.unpack_from("f", data, 7)[0]
+
+    def __repr__(self):
+        return "ID: %s; Typ: %s, time: %f; data: %f" % (self.clientID,
+                self.type_, self.timestamp, self.data)
+
+    def toDict(self):
+        return {'id': self.clientID, 'type': self.type_, 'timestamp': self.timestamp, 'data': self.data}
+    
+
+class MySerialPort(SerialPort):
+    def connectionLost(self, reason):
+        print reason
+
+
+class SerialClient(Protocol, TimeoutMixin):
+    def __init__(self, publishCB, resetConnection):
         self._publish = publishCB
-        super(SerialClient, self).__init__()
+        self._timeoutCB = resetConnection
 
     def connectionFailed(self):
         log.err("Connection failed")
-        reactor.stop()
+
+    def timeoutConnection(self):
+        log.msg("Connection timeout")
+        self._timeoutCB()
+        self.setTimeout(None)
 
     def connectionMade(self):
         log.msg("Connected to MCP")
         self.sendCMD('GET')
+        self.resetTimeout()
 
-    def sendCMD(self, cmd):
+    def sendCMD(self, cmd, data=None):
         if not cmd in ['GET']:
             raise Exception("UNKNOWN COMMAND")
         self.transport.write(cmd)
+        if data:
+            self.transport.write(data)
+        self.resetTimeout()
 
     def dataReceived(self, data):
-        reactor.callLater(0, self.sendCMD, 'GET')
-        data_ = ""
-        for val in data:
-            data_ += "%s : " % ord(val)
-        log.msg(data_)
-        self._publish(data_[2])
+        self.resetTimeout()
+        print len(data)
+        if len(data) == 11:
+            packet = Packet(data)
+            print packet
+            self._publish(packet.toDict())
+            reactor.callLater(0.1, self.sendCMD, 'GET')
+        else:
+           log.msg("Received Gargabe")
+           log.msg("LEN: %s " % len(data))
+           log.msg(data)
 
     def lineReceived(self, line):
         log.msg("Line Received")
