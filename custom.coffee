@@ -1,4 +1,7 @@
-graph1Data = new TimeSeries
+graphData = []
+for i in [1..10]
+  graphData.push(new TimeSeries)
+
 class Wamp
   constructor: () ->
     ab.connect("ws://localhost:9000",
@@ -15,16 +18,14 @@ class Wamp
   onEvent: (topicUri, event) ->
     console.log topicUri
     console.log event
-    graph1Data.append(new Date().getTime(), event);
+    graphData[event.id-1].append(event.timestamp, event.data)
 
-setup = -> 
-  graph1 = new SmoothieChart
-  graph1.streamTo document.getElementById("graph1"), 100
-
-  setInterval(( ->
-    ), 100)
-
-  graph1.addTimeSeries(graph1Data)
+setup = ->
+  graphs = []
+  for id in [1..10]
+    graph = new SmoothieChart
+    graph.streamTo document.getElementById("graph_#{id}"), 100
+    graph.addTimeSeries(graphData[id])
 
 window.onload = ->
   wamp = new Wamp
