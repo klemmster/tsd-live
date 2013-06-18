@@ -1,5 +1,5 @@
 graphData = []
-for i in [1..10]
+for i in [1..9]
   graphData.push(new TimeSeries)
 
 class Wamp
@@ -21,11 +21,10 @@ class Wamp
     graphData[event.id-1].append(event.timestamp, event.data)
 
 setup = ->
-  graphs = []
-  for id in [1..10]
+  for id in [1..9]
     graph = new SmoothieChart
     graph.streamTo document.getElementById("graph_#{id}"), 100
-    graph.addTimeSeries(graphData[id])
+    graph.addTimeSeries(graphData[id-1])
 
 window.onload = ->
   wamp = new Wamp

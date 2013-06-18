@@ -4,7 +4,7 @@
 
   graphData = [];
 
-  for (i = _i = 1; _i <= 10; i = ++_i) {
+  for (i = _i = 1; _i <= 9; i = ++_i) {
     graphData.push(new TimeSeries);
   }
 
@@ -22,9 +22,8 @@
     }
 
     Wamp.prototype.onEvent = function(topicUri, event) {
-      console.log(topicUri);
-      console.log(event);
-      return graphData[event.id - 1].append(event.timestamp, event.data);
+      //console.log(event);
+      return graphData[event.id - 1].append(new Date().getTime(), event.data);
     };
 
     return Wamp;
@@ -32,13 +31,12 @@
   })();
 
   setup = function() {
-    var graph, graphs, id, _j, _results;
-    graphs = [];
+    var graph, id, _j, _results;
     _results = [];
-    for (id = _j = 1; _j <= 10; id = ++_j) {
+    for (id = _j = 1; _j <= 9; id = ++_j) {
       graph = new SmoothieChart;
       graph.streamTo(document.getElementById("graph_" + id), 100);
-      _results.push(graph.addTimeSeries(graphData[id]));
+      _results.push(graph.addTimeSeries(graphData[id-1]));
     }
     return _results;
   };

@@ -3,6 +3,7 @@
 import struct
 import sys
 import random
+from time import time
 
 import serial
 
@@ -63,6 +64,7 @@ class Packet(object):
         self.clientID = struct.unpack_from("<h", data, 0)[0]
         self.type_ = struct.unpack_from("B", data, 2)[0]
         self.timestamp = struct.unpack_from("f", data, 3)[0]
+        self.timestamp = time()
         self.data = struct.unpack_from("f", data, 7)[0]
 
     def __repr__(self):
