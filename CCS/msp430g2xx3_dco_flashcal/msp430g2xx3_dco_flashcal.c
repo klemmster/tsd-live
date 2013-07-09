@@ -224,8 +224,9 @@ __interrupt void PORT2_ISR(void)
 
 void setupPins(void)
 {
-	P2IES = HIGH_to_LOW;
-	P2IE = BIT0;
-	P2REN = BIT0;
 	P2DIR = 0x0;
+	P2IES = HIGH_to_LOW;
+	P2REN = BIT0;
+	P2OUT = BIT0;
+	P2IE = BIT0;
 }
