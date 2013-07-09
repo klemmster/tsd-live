@@ -75,8 +75,8 @@
 //******************************************************************************
 #include <msp430.h>
 
-#define False 0
-#define True 1
+#define False 0x00;
+#define True 0x01;
 
 #define LOW_to_HIGH 0x00;
 #define HIGH_to_LOW 0x01;
@@ -89,22 +89,23 @@ volatile unsigned char isSynced;
 volatile unsigned char currentBit;
 volatile unsigned char nextBit;
 
-volatile unsigned inBufferIndex;
+volatile unsigned char inBufferIndex;
 volatile unsigned char inBuffer[8];
 
 volatile unsigned char expectShortEdge;
 
-volatile unsigned int manualTimer = 0;
+volatile unsigned int INTERRUPTTRESHOLD = 32;
 
-volatile unsigned char T = 128;	//Half Bit Rate = 4useconds
-volatile unsigned char T2 = 256;  //Bit Rate = 0.000256 = 256useconds 125kHz / 32
+
+volatile unsigned int T = 128;	//Half Bit Rate = 4useconds
+volatile unsigned int T2 = 256;  //Bit Rate = 0.000256 = 256useconds 125kHz / 32
 
 //volatile unsigned char Ttolerance = 1;
-volatile unsigned char T2Max = 320; //T2 + Ttolerance;
-volatile unsigned char T2Min = 192; //T2 - Ttolerance;
+volatile unsigned int T2Max = 320; //T2 + Ttolerance;
+volatile unsigned int T2Min = 192; //T2 - Ttolerance;
 
-volatile unsigned char TMax = 64; //T + Ttolerance;
-volatile unsigned char TMin = 192; //T - Ttolerance;
+volatile unsigned int TMax = 192; //T + Ttolerance;
+volatile unsigned int TMin = 64; //T - Ttolerance;
 
 
 inline void startSync(void);
@@ -123,50 +124,63 @@ int main(void)
   BCSCTL1 = CALBC1_16MHZ;					// Set DCO to 16MHz
   DCOCTL = CALDCO_16MHZ;					// Set DCP to 16MHz
 
-  BCSCTL2 = SELM_0 + DIVM_0 + DIVS_0;		// Select DCO as MCLK; MCLK / 1 + SMCLK / 1
+  BCSCTL2 = SELM_0 + DIVM_0 + DIVS_3;		// Select DCO as MCLK; MCLK / 1 + SMCLK / 8
 
   setupPins();
 
   __bis_SR_register(GIE);       			// enable interrupts
 }
 
-
+volatile unsigned int diff;
 //edge detect interrupt service routine
 #pragma vector=PORT2_VECTOR
 __interrupt void PORT2_ISR(void)
 {
-	P2IFG &= ~BIT0;
-	P2IES ^= BIT0;								//Flip edge detect direction
-	P1OUT ^= BIT0;
+	TA0CCTL0 ^= CCIS0;							//Trigger time capture
+	diff = TA0CCR0 - lastTime;
 
+	//Start Timer
 	if(!isSyncing)
 	{
 		isSyncing = True;
 		//TEMPORALILY Enable LED OUTPUT
-		  P1OUT = 0x00;                             // Clear P1 output latches
-		  P1SEL = 0x10;                             // P1.4 SMCLK output
-		  P1DIR = 0x11;                             // P1.0,4 output
+		P1OUT = 0x00;                             // Clear P1 output latches
+		P1SEL = 0x10;                             // P1.4 SMCLK output
+		P1DIR = 0x11;                             // P1.0,4 output
+		//END TEMPORARY
 
 		lastTime = 0;
 
-		TACTL |= TASSEL_2 | ID_0 | MC_2;
+		TACTL |= TASSEL_2 | ID_1 | MC_2;			// Enable capture timer /2 = 1uSecond
 		TA0CCTL0 = CAP + SCS + CCIS1 + CM_3;
 		TA0CCTL0 ^= CCIS0;
+		lastTime = TA0CCR0;
 		return;
 	}
 
-	TA0CCTL0 ^= CCIS0;
-	volatile unsigned int currTime = TA0CCR0;
-	volatile unsigned int diff = currTime - lastTime;
+	// Early escape
+	if( diff < INTERRUPTTRESHOLD){
+		return;
+	}
+
+	P2IES ^= BIT0;								//Flip edge detect direction
+	P2IFG &= ~BIT0;								//Clear edge interrupt
+	P1OUT ^= BIT0;
+	lastTime = TACCR0;
+
+	if ( diff < TMin || diff > T2Max)
+	{
+		return;
+	}
 
 	if(!isSynced)
 	{
-		lastTime = currTime;
 		if (T2Min < diff && diff < T2Max)
 		{
 			isSynced = True;
 			currentBit = P2IN;
 		}
+		lastTime = TA0CCR0;
 		return;
 	}
 
@@ -192,7 +206,7 @@ __interrupt void PORT2_ISR(void)
 			}
 			else if (T2Min < diff && diff < T2Max)
 			{
-				nextBit = ~currentBit;
+				nextBit ^= 0x01;
 			}
 			else
 			{
@@ -204,6 +218,7 @@ __interrupt void PORT2_ISR(void)
 	} //End if(isSynced)
 
 	inBuffer[inBufferIndex++] = nextBit;
+	inBufferIndex = inBufferIndex % 8;
 	currentBit = nextBit;
 }
 
@@ -211,5 +226,6 @@ void setupPins(void)
 {
 	P2IES = HIGH_to_LOW;
 	P2IE = BIT0;
+	P2REN = BIT0;
 	P2DIR = 0x0;
 }
