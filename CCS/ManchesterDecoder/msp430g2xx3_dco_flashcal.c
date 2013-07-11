@@ -74,12 +74,13 @@
 //   Built with CCS Version 4.2.0 and IAR Embedded Workbench Version: 3.42A
 //******************************************************************************
 #include <msp430.h>
+#include <stdint.h>
 
 #define False 0x00;
 #define True 0x01;
 
 #define LOW_to_HIGH 0x00;
-#define HIGH_to_LOW 0x01;
+#define HIGH_to_LOW 0x02;
 
 volatile unsigned int i;
 
@@ -93,19 +94,20 @@ volatile unsigned char inBufferIndex;
 volatile unsigned char inBuffer[8];
 
 volatile unsigned char expectShortEdge;
+volatile unsigned char receivedHeader;
 
-volatile unsigned int INTERRUPTTRESHOLD = 32;
-
-
-volatile unsigned int T = 128;	//Half Bit Rate = 4useconds
-volatile unsigned int T2 = 256;  //Bit Rate = 0.000256 = 256useconds 125kHz / 32
+volatile unsigned int T = 128;	//Half Bit Rate
+volatile unsigned int T2 = 256;  //Bit Rate = 0.000256 = 512 useconds 125kHz / 32
 
 //volatile unsigned char Ttolerance = 1;
-volatile unsigned int T2Max = 320; //T2 + Ttolerance;
-volatile unsigned int T2Min = 192; //T2 - Ttolerance;
+volatile unsigned int T2Max = 281; //T2 + Ttolerance;
+volatile unsigned int T2Min = 231; //T2 - Ttolerance;
 
-volatile unsigned int TMax = 192; //T + Ttolerance;
-volatile unsigned int TMin = 64; //T - Ttolerance;
+volatile unsigned int TMax = 153; //T + Ttolerance;
+volatile unsigned int TMin = 103; //T - Ttolerance;
+
+volatile unsigned int treshold = 12;
+volatile uint16_t headerBits = 0; //Header 9 bits 1 == header done
 
 
 inline void startSync(void);
@@ -120,11 +122,18 @@ int main(void)
   isSyncing = False;
   isSynced = False;
   expectShortEdge = False;
+  receivedHeader = False;
 
   BCSCTL1 = CALBC1_16MHZ;					// Set DCO to 16MHz
   DCOCTL = CALDCO_16MHZ;					// Set DCP to 16MHz
 
   BCSCTL2 = SELM_0 + DIVM_0 + DIVS_3;		// Select DCO as MCLK; MCLK / 1 + SMCLK / 8
+
+	//TEMPORALILY Enable LED OUTPUT
+	P1OUT = 0x00;                             // Clear P1 output latches
+	P1SEL = 0x10;                             // P1.4 SMCLK output
+	P1DIR = BIT0;                             // P1.0,4 output
+	//END TEMPORARY
 
   setupPins();
 
@@ -138,52 +147,55 @@ __interrupt void PORT2_ISR(void)
 {
 	TA0CCTL0 ^= CCIS0;							//Trigger time capture
 	diff = TA0CCR0 - lastTime;
+	//TODO: Handle overflown timer
 
-	//Start Timer
-	if(!isSyncing)
-	{
-		isSyncing = True;
-		//TEMPORALILY Enable LED OUTPUT
-		P1OUT = 0x00;                             // Clear P1 output latches
-		P1SEL = 0x10;                             // P1.4 SMCLK output
-		P1DIR = 0x11;                             // P1.0,4 output
-		//END TEMPORARY
+	//Signal isn't synced yet, keep flipping edges until
+	if(!isSynced){
+		//Start Timer
+		if(!isSyncing)
+		{
+			isSyncing = True;
+			TA0CTL |= TASSEL_2 | ID_2 | MC_2;			// Enable capture timer /4 = 2uSecond
+			TA0CCTL0 = CAP + SCS + CCIS1 + CM_3;
+			TA0CCTL0 ^= CCIS0;
+			lastTime = TA0CCR0;
+			return;
+		}
 
-		lastTime = 0;
+		if (diff < treshold){
+			return;
+		}
 
-		TACTL |= TASSEL_2 | ID_1 | MC_2;			// Enable capture timer /2 = 1uSecond
-		TA0CCTL0 = CAP + SCS + CCIS1 + CM_3;
-		TA0CCTL0 ^= CCIS0;
+		P2IES ^= BIT1;								//Flip edge detect direction
+		P2IFG &= ~BIT1;								//Clear edge interrupt
 		lastTime = TA0CCR0;
-		return;
-	}
+		//P1OUT ^= 0x01;                            // Toggle P1.0
 
-	// Early escape
-	if( diff < INTERRUPTTRESHOLD){
-		return;
-	}
+		if ( diff < TMin || diff > T2Max)
+		{
+			return;
+		}
 
-	P2IES ^= BIT0;								//Flip edge detect direction
-	P2IFG &= ~BIT0;								//Clear edge interrupt
-	P1OUT ^= BIT0;
-	lastTime = TACCR0;
-
-	if ( diff < TMin || diff > T2Max)
-	{
-		return;
-	}
-
-	if(!isSynced)
-	{
 		if (T2Min < diff && diff < T2Max)
 		{
 			isSynced = True;
-			currentBit = P2IN;
+			currentBit = (P2IN >> 1) & 0x0001;
+			P2IE &= ~BIT1;							//Disable edge detection
+			//Enable TimedInterrupt enabler
+
+			TA1CCR0 = TMax;
+			TA1CCR1 = TMin;
+			TA1CTL |= TASSEL_2 | ID_2 | MC_1;// | TAIE;
+			TA1CCTL0 = CCIE;
+			TA1CCTL1 = CCIE;
+			//TA1CCTL2 = CCIE;
 		}
-		lastTime = TA0CCR0;
 		return;
 	}
 
+	P2IE &= ~BIT1;			//Disable Interrupt
+
+	/*
 	if(isSynced){
 		if (expectShortEdge)
 		{
@@ -217,16 +229,48 @@ __interrupt void PORT2_ISR(void)
 		}
 	} //End if(isSynced)
 
-	inBuffer[inBufferIndex++] = nextBit;
-	inBufferIndex = inBufferIndex % 8;
 	currentBit = nextBit;
+	if(!receivedHeader){
+		headerBits << 1;
+		headerBits |= nextBit;
+		if (headerBits == 511){
+			receivedHeader = True;
+		}
+		return;
+	}else{
+		inBuffer[inBufferIndex++] = nextBit;
+		inBufferIndex = inBufferIndex % 8;
+	}
+
+	*/
+}
+
+// Timer A1_CC1
+#pragma vector=TIMER1_A1_VECTOR
+__interrupt void Timer1_A1 (void)
+{
+	  switch( TA1IV )
+	  {
+		  case TA1IV_TACCR1: P1OUT ^= 0x01;                  // Toggle P1
+							 //TA1CCR1 = 0;
+							 break;
+	  }
+}
+
+// Timer A1_CC0 interrupt service routine
+#pragma vector=TIMER1_A0_VECTOR
+__interrupt void Timer_B (void)
+{
+
+  //TA0CCR0 Fired
+  P1OUT ^= 0x01;
 }
 
 void setupPins(void)
 {
 	P2DIR = 0x0;
-	P2IES = HIGH_to_LOW;
-	P2REN = BIT0;
-	P2OUT = BIT0;
-	P2IE = BIT0;
+	P2REN = 0x0;
+	P2IES = LOW_to_HIGH;
+	//P2OUT = 0;
+	P2IE = BIT1;
 }

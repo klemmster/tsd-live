@@ -109,19 +109,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: msp430g2xx3_dco_flashcal.out
+all: ManchesterDecoder.out
 
 # Tool invocations
-msp430g2xx3_dco_flashcal.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+ManchesterDecoder.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MSP430 Linker'
-	"C:/ti/ccsv5/tools/compiler/msp430_4.1.5/bin/cl430" -vmsp --abi=eabi -O2 --advice:power=all --define=__MSP430G2553__ --diag_warning=225 --display_error_number --diag_wrap=off --printf_support=minimal -z --stack_size=80 -m"msp430g2xx3_dco_flashcal.map" --heap_size=80 -i"C:/ti/ccsv5/ccs_base/msp430/include" -i"C:/ti/ccsv5/tools/compiler/msp430_4.1.5/lib" -i"C:/ti/ccsv5/tools/compiler/msp430_4.1.5/include" --reread_libs --warn_sections --display_error_number --diag_wrap=off --xml_link_info="msp430g2xx3_dco_flashcal_linkInfo.xml" --rom_model -o "msp430g2xx3_dco_flashcal.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv5/tools/compiler/msp430_4.1.5/bin/cl430" -vmsp --abi=eabi -O2 --advice:power=all --define=__MSP430G2553__ --diag_warning=225 --display_error_number --diag_wrap=off --printf_support=minimal -z --stack_size=80 -m"ManchesterDecoder.map" --heap_size=80 -i"C:/ti/ccsv5/ccs_base/msp430/include" -i"C:/ti/ccsv5/tools/compiler/msp430_4.1.5/lib" -i"C:/ti/ccsv5/tools/compiler/msp430_4.1.5/include" --reread_libs --warn_sections --display_error_number --diag_wrap=off --xml_link_info="ManchesterDecoder_linkInfo.xml" --rom_model -o "ManchesterDecoder.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(MSP430_EXECUTABLE_OUTPUTS__QUOTED) "msp430g2xx3_dco_flashcal.out"
+	-$(RM) $(MSP430_EXECUTABLE_OUTPUTS__QUOTED) "ManchesterDecoder.out"
 	-$(RM) "msp430g2xx3_dco_flashcal.pp" 
 	-$(RM) "msp430g2xx3_dco_flashcal.obj" 
 	-@echo 'Finished clean'
