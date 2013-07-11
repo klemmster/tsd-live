@@ -100,10 +100,10 @@ volatile unsigned int T = 128;	//Half Bit Rate
 volatile unsigned int T2 = 256;  //Bit Rate = 0.000256 = 512 useconds 125kHz / 32
 
 //volatile unsigned char Ttolerance = 1;
-volatile unsigned int T2Max = 281; //T2 + Ttolerance;
-volatile unsigned int T2Min = 231; //T2 - Ttolerance;
+volatile unsigned int T2Max = 300; //T2 + Ttolerance;
+volatile unsigned int T2Min = 200; //T2 - Ttolerance;
 
-volatile unsigned int TMax = 153; //T + Ttolerance;
+volatile unsigned int TMax = 200; //T + Ttolerance;
 volatile unsigned int TMin = 103; //T - Ttolerance;
 
 volatile unsigned int treshold = 12;
@@ -116,7 +116,7 @@ void setupPins(void);
 int main(void)
 {
   WDTCTL = WDTPW + WDTHOLD;                 // Stop WDT
-  for (i = 0; i < 0xfffe; i++);             // Delay for XTAL stabilization
+  //for (i = 0; i < 0xfffe; i++);             // Delay for XTAL stabilization
 
   inBufferIndex = 0;
   isSyncing = False;
@@ -140,67 +140,44 @@ int main(void)
   __bis_SR_register(GIE);       			// enable interrupts
 }
 
-volatile unsigned int diff;
 //edge detect interrupt service routine
 #pragma vector=PORT2_VECTOR
 __interrupt void PORT2_ISR(void)
 {
-	TA0CCTL0 ^= CCIS0;							//Trigger time capture
-	diff = TA0CCR0 - lastTime;
-	//TODO: Handle overflown timer
+	TA0CCTL0 ^= CCIS0;						//Trigger time capture
+	P2IFG &= ~BIT1;								//Clear edge interrupt
 
-	//Signal isn't synced yet, keep flipping edges until
-	if(!isSynced){
-		//Start Timer
-		if(!isSyncing)
-		{
-			isSyncing = True;
-			TA0CTL |= TASSEL_2 | ID_2 | MC_2;			// Enable capture timer /4 = 2uSecond
-			TA0CCTL0 = CAP + SCS + CCIS1 + CM_3;
-			TA0CCTL0 ^= CCIS0;
-			lastTime = TA0CCR0;
-			return;
-		}
-
-		if (diff < treshold){
-			return;
-		}
-
-		P2IES ^= BIT1;								//Flip edge detect direction
-		P2IFG &= ~BIT1;								//Clear edge interrupt
-		lastTime = TA0CCR0;
-		//P1OUT ^= 0x01;                            // Toggle P1.0
-
-		if ( diff < TMin || diff > T2Max)
-		{
-			return;
-		}
-
-		if (T2Min < diff && diff < T2Max)
-		{
-			isSynced = True;
-			currentBit = (P2IN >> 1) & 0x0001;
-			P2IE &= ~BIT1;							//Disable edge detection
-			//Enable TimedInterrupt enabler
-
-			TA1CCR0 = TMax;
-			TA1CCR1 = TMin;
-			TA1CTL |= TASSEL_2 | ID_2 | MC_1;// | TAIE;
-			TA1CCTL0 = CCIE;
-			TA1CCTL1 = CCIE;
-			//TA1CCTL2 = CCIE;
-		}
+	//Start Timer
+	if(!isSyncing)
+	{
+		isSyncing = True;
+		TA0CTL |= TASSEL_2 | ID_2 | MC_2 | TACLR;			// Enable capture timer /4 = 2uSecond
+		TA0R = 0;									// Set TimerCoutner 0
+		TA0CCTL0 = CAP + /*SCS*/ + CCIS1 + CM_3;
 		return;
 	}
 
-	P2IE &= ~BIT1;			//Disable Interrupt
+	if ( (TA0CCR0 < TMin) || ( (TA0CCR0 > TMax) && (TA0CCR0 < T2Min) ) )
+	{
+		return;
 
-	/*
+	}
+	P2IES ^= BIT1;								//Flip edge detect direction
+	TA0R = 0;
+	P1OUT ^= 0x01;                            // Toggle P1.0
+
+
+	//Start Data Processing
+	if(!isSynced){
+		if (T2Min < TA0CCR0 && TA0CCR0 < T2Max){
+			isSynced = True;
+		}
+	}
 	if(isSynced){
 		if (expectShortEdge)
 		{
 			expectShortEdge = False;
-			if (T2Min < diff && diff < T2Max)
+			if (T2Min < TA0CCR0 && TA0CCR0 < T2Max)
 			{
 				//TODO: Handle Error
 				return;
@@ -211,12 +188,12 @@ __interrupt void PORT2_ISR(void)
 		}
 		else
 		{
-			if (TMin < diff && diff < TMax)
+			if (TMin < TA0CCR0 && TA0CCR0 < TMax)
 			{
 				expectShortEdge = True;
 				return;
 			}
-			else if (T2Min < diff && diff < T2Max)
+			else if (T2Min < TA0CCR0 && TA0CCR0 < T2Max)
 			{
 				nextBit ^= 0x01;
 			}
@@ -241,17 +218,18 @@ __interrupt void PORT2_ISR(void)
 		inBuffer[inBufferIndex++] = nextBit;
 		inBufferIndex = inBufferIndex % 8;
 	}
-
-	*/
 }
 
+/*
 // Timer A1_CC1
 #pragma vector=TIMER1_A1_VECTOR
 __interrupt void Timer1_A1 (void)
 {
 	  switch( TA1IV )
 	  {
-		  case TA1IV_TACCR1: P1OUT ^= 0x01;                  // Toggle P1
+		  case TA1IV_TACCR1: //P1OUT ^= 0x01;                  // Toggle P1
+		  	  	  	  	  	 P2IE &= ~BIT1;					//Disable Interrupt
+		  	  	  	  	  	 P2IFG &= ~BIT1;
 							 //TA1CCR1 = 0;
 							 break;
 	  }
@@ -263,8 +241,11 @@ __interrupt void Timer_B (void)
 {
 
   //TA0CCR0 Fired
-  P1OUT ^= 0x01;
+  //P1OUT ^= 0x01;
+  P2IE |= BIT1;			//Enable Interrupt
+  P2IFG &= ~BIT1;
 }
+*/
 
 void setupPins(void)
 {
