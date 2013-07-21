@@ -17,38 +17,44 @@
 <coolItem id="org.eclipse.debug.ui.launch.toolbar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="53" y="22"/>
 <coolItem id="org.eclipse.debug.ui.main.toolbar" itemType="typeToolBarContribution" x="-1" y="-1"/>
-<coolItem id="com.ti.ccstudio.debug.ui.toolbar" itemType="typeToolBarContribution" x="-1" y="-1"/>
+<coolItem id="com.ti.ccstudio.debug.ui.toolbar" itemType="typeToolBarContribution" x="183" y="22"/>
 <coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="53" y="22"/>
 <coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="38" y="22"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="114" y="22"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
+<coolItem id="com.ti.ccstudio.ui.cmdFileEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.cdt.ui.editor.CEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
-<page aggregateWorkingSetId="Aggregate for window 1371549314451" focus="true" label="Workspace - CCS Edit">
+<page aggregateWorkingSetId="Aggregate for window 1371549314451" focus="true" label="Workspace - CCS Debug">
 <editors>
 <editorArea activeWorkbook="DefaultEditorWorkbook">
 <info part="DefaultEditorWorkbook">
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
+<part id="1"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor activePart="true" focus="true" id="org.eclipse.cdt.ui.editor.CEditor" name="msp430g2xx3_dco_flashcal.c" partName="msp430g2xx3_dco_flashcal.c" path="C:/Users/Richy/Projekte/tsd-live/CCS/ManchesterDecoder/msp430g2xx3_dco_flashcal.c" title="msp430g2xx3_dco_flashcal.c" tooltip="ManchesterDecoder/msp430g2xx3_dco_flashcal.c" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ManchesterDecoder/msp430g2xx3_dco_flashcal.c"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
+<editor id="com.ti.ccstudio.ui.cmdFileEditor" name="lnk_msp430g2553.cmd" partName="lnk_msp430g2553.cmd" path="C:/Users/Richy/Projekte/tsd-live/CCS/ManchesterDecoder/lnk_msp430g2553.cmd" title="lnk_msp430g2553.cmd" tooltip="ManchesterDecoder/lnk_msp430g2553.cmd" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ManchesterDecoder/lnk_msp430g2553.cmd"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="6248" selectionTopPixel="1442"/>
+</editor>
+<editor activePart="true" focus="true" id="org.eclipse.cdt.ui.editor.CEditor" name="Decode_Manchester.c" partName="Decode_Manchester.c" path="C:/Users/Richy/Projekte/tsd-live/CCS/RFID_uC_Pullup_working/Decode_Manchester.c" title="Decode_Manchester.c" tooltip="RFID_uC_Pullup_working/Decode_Manchester.c" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/RFID_uC_Pullup_working/Decode_Manchester.c"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="4382" selectionTopPixel="2039"/>
 </editor>
 </editors>
 <views>
-<view id="org.eclipse.debug.ui.ExpressionView" partName="Expressions">
-<viewState/>
-</view>
 <view id="org.eclipse.ui.navigator.ProjectExplorer" partName="Project Explorer">
 <viewState CommonNavigator.LINKING_ENABLED="0" org.eclipse.cdt.ui.cview.groupincludes="false" org.eclipse.cdt.ui.cview.groupmacros="false" org.eclipse.cdt.ui.editor.CUChildren="true" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0"/>
+</view>
+<view id="org.eclipse.debug.ui.ExpressionView" partName="Expressions">
+<viewState/>
 </view>
 <view id="com.ti.ccstudio.system.setup.ui.views.TargetConfigurationView" partName="Target Configurations">
 <viewState/>
@@ -56,11 +62,13 @@
 <view id="org.eclipse.debug.ui.RegisterView" partName="Registers">
 <viewState/>
 </view>
-<view id="org.eclipse.debug.ui.DebugView" partName="Debug">
-<viewState/>
-</view>
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
+<expanded>
+<category IMemento.internal.id="Warnings (11 items)"/>
+<category IMemento.internal.id="Warnings"/>
+<category IMemento.internal.id="Errors"/>
+</expanded>
 <columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="90" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="300"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
@@ -69,11 +77,17 @@
 <visible IMemento.internal.id="org.eclipse.ui.ide.markerType"/>
 </viewState>
 </view>
+<view id="org.eclipse.debug.ui.DebugView" partName="Debug">
+<viewState/>
+</view>
 <view id="org.eclipse.ui.console.ConsoleView" partName="Console">
 <viewState/>
 </view>
 <view id="com.ti.ccstudio.project.ui.views.AdviceView" partName="Advice">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.type" markerContentGenerator="com.ti.ccstudio.project.ui.views.adviceMarkerGenerator" partName="Advice">
+<expanded>
+<category IMemento.internal.id="Power (ULP™) Advice (5 items)"/>
+</expanded>
 <columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="300"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.resourceField"/>
@@ -86,7 +100,7 @@
 <viewState/>
 </view>
 </views>
-<perspectives activePart="org.eclipse.ui.navigator.ProjectExplorer" activePerspective="com.ti.ccstudio.TICPerspective">
+<perspectives activePart="org.eclipse.cdt.ui.editor.CEditor" activePerspective="com.ti.ccstudio.TIDebugPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="com.ti.ccstudio.internal.ui.perspectives.TICPerspectiveFactory" id="com.ti.ccstudio.TICPerspective" label="CCS Edit"/>
 <alwaysOnActionSet id="org.eclipse.mylyn.context.ui.actionSet"/>
@@ -346,10 +360,11 @@
 <hide_toolbar_item_id id="org.eclipse.ui.navigate.next"/>
 <hide_toolbar_item_id id="com.ti.ccstudio.debug.ui.command.realtime"/>
 <hide_toolbar_item_id id="org.eclipse.debug.internal.ui.actions.RunDropDownAction"/>
+<view id="org.eclipse.ui.navigator.ProjectExplorer"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
 <view id="org.eclipse.ui.views.ProblemView"/>
 <view id="com.ti.ccstudio.project.ui.views.AdviceView"/>
-<view id="org.eclipse.ui.navigator.ProjectExplorer"/>
+<view id="com.ti.ccstudio.system.setup.ui.views.TargetConfigurationView"/>
 <fastViewBars/>
 <layout>
 <mainWindow>
@@ -383,7 +398,7 @@
 </presentation>
 </folder>
 </info>
-<info folder="true" part="bottomRight" ratio="0.5" ratioLeft="350" ratioRight="350" relationship="2" relative="bottomLeft">
+<info folder="true" part="bottomRight" ratio="0.6407465" ratioLeft="824" ratioRight="462" relationship="2" relative="bottomLeft">
 <folder activePageID="org.eclipse.ui.views.ProblemView" appearance="2" expanded="2">
 <page content="org.eclipse.ui.views.ProblemView" label="Problems"/>
 <page content="com.ti.ccstudio.project.ui.views.AdviceView" label="Advice"/>
@@ -406,11 +421,14 @@
 <page content="com.ti.ccstudio.project.ui.views.OptimizerAssistantView" label="LabelNotFound"/>
 </folder>
 </info>
-<info folder="true" part="right" ratio="0.75" ratioLeft="525" ratioRight="175" relationship="2" relative="org.eclipse.ui.editorss">
-<folder appearance="2" expanded="2">
+<info folder="true" part="right" ratio="0.7620529" ratioLeft="980" ratioRight="306" relationship="2" relative="org.eclipse.ui.editorss">
+<folder activePageID="com.ti.ccstudio.system.setup.ui.views.TargetConfigurationView" appearance="2" expanded="2">
+<page content="com.ti.ccstudio.system.setup.ui.views.TargetConfigurationView" label="Target Configurations"/>
 <page content="org.eclipse.ui.views.ContentOutline" label="LabelNotFound"/>
-<page content="com.ti.ccstudio.system.setup.ui.views.TargetConfigurationView" label="LabelNotFound"/>
 <page content="com.ti.grace.ui.snippets.views.SnippetsView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+</presentation>
 </folder>
 </info>
 <info folder="true" part="topRight" ratio="0.45" ratioLeft="315" ratioRight="385" relationship="2" relative="topLeft">
@@ -425,7 +443,7 @@
 </mainWindow>
 </layout>
 </perspective>
-<perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
+<perspective editorAreaTrimState="1" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="com.ti.ccstudio.internal.ui.perspectives.TIDebugPerspectiveFactory" id="com.ti.ccstudio.TIDebugPerspective" label="CCS Debug"/>
 <alwaysOnActionSet id="org.eclipse.mylyn.context.ui.actionSet"/>
 <alwaysOnActionSet id="org.eclipse.mylyn.doc.actionSet"/>
@@ -477,12 +495,12 @@
 <hide_menu_item_id id="referencesSubMenu"/>
 <hide_menu_item_id id="org.eclipse.jdt.ui.refactoring.menu"/>
 <hide_menu_item_id id="org.eclipse.jdt.debug.ui.commands.AllInstances"/>
-<hide_menu_item_id id="org.eclipse.search.ui.openFileSearchPage"/>
 <hide_menu_item_id id="org.eclipse.cdt.debug.ui.command.reverseResume"/>
+<hide_menu_item_id id="org.eclipse.search.ui.openFileSearchPage"/>
 <hide_menu_item_id id="org.eclipse.cdt.ui.edit.text.c.indent"/>
 <hide_menu_item_id id="org.eclipse.search.ui.performTextSearchWorkspace"/>
-<hide_menu_item_id id="org.eclipse.jdt.debug.ui.commands.Execute"/>
 <hide_menu_item_id id="showIn"/>
+<hide_menu_item_id id="org.eclipse.jdt.debug.ui.commands.Execute"/>
 <hide_menu_item_id id="org.eclipse.debug.internal.ui.actions.ProfileHistoryMenuAction"/>
 <hide_menu_item_id id="org.eclipse.debug.ui.commands.ProfileLast"/>
 <hide_menu_item_id id="org.eclipse.ui.navigate.goToResource"/>
@@ -500,24 +518,24 @@
 <hide_menu_item_id id="org.eclipse.jdt.ui.actions.OpenJavaSearchPage"/>
 <hide_menu_item_id id="org.eclipse.jdt.ui.edit.text.java.search.references.in.workspace"/>
 <hide_menu_item_id id="org.eclipse.cdt.ui.buildConfigMenuAction"/>
-<hide_menu_item_id id="org.eclipse.ui.navigate.up"/>
 <hide_menu_item_id id="org.eclipse.cdt.ui.edit.opendecl"/>
+<hide_menu_item_id id="org.eclipse.ui.navigate.up"/>
 <hide_menu_item_id id="org.eclipse.cdt.ui.navigate.open.type.in.hierarchy"/>
 <hide_menu_item_id id="org.eclipse.search.ui.performTextSearchWorkingSet"/>
 <hide_menu_item_id id="org.eclipse.jdt.ui.edit.text.java.search.read.access.in.workspace"/>
-<hide_menu_item_id id="readAccessSubMenu"/>
 <hide_menu_item_id id="org.eclipse.jdt.ui.edit.text.java.search.declarations.in.project"/>
+<hide_menu_item_id id="readAccessSubMenu"/>
 <hide_menu_item_id id="org.eclipse.search.ui.performTextSearchFile"/>
 <hide_menu_item_id id="org.eclipse.jdt.ui.edit.text.java.search.implementors.in.project"/>
 <hide_menu_item_id id="org.eclipse.debug.ui.commands.OpenRunConfigurations"/>
 <hide_menu_item_id id="org.eclipse.cdt.debug.ui.command.reverseStepInto"/>
 <hide_menu_item_id id="org.eclipse.jdt.debug.ui.commands.AddClassPrepareBreakpoint"/>
-<hide_menu_item_id id="org.eclipse.jdt.ui.edit.text.java.search.read.access.in.hierarchy"/>
 <hide_menu_item_id id="org.eclipse.debug.ui.commands.OpenProfileConfigurations"/>
+<hide_menu_item_id id="org.eclipse.jdt.ui.edit.text.java.search.read.access.in.hierarchy"/>
 <hide_menu_item_id id="org.eclipse.jdt.debug.ui.commands.Watch"/>
 <hide_menu_item_id id="org.eclipse.jdt.debug.ui.commands.InstanceCount"/>
-<hide_menu_item_id id="org.eclipse.cdt.ui.refactor.getters.and.setters"/>
 <hide_menu_item_id id="org.eclipse.ui.navigate.goInto"/>
+<hide_menu_item_id id="org.eclipse.cdt.ui.refactor.getters.and.setters"/>
 <hide_menu_item_id id="org.eclipse.cdt.ui.edit.text.c.add.include"/>
 <hide_menu_item_id id="org.eclipse.ui.edit.text.open.hyperlink"/>
 <hide_menu_item_id id="org.eclipse.jdt.ui.edit.text.java.search.references.in.working.set"/>
@@ -577,45 +595,45 @@
 <hide_menu_item_id id="org.eclipse.cdt.ui.edit.open.include.browser"/>
 <hide_menu_item_id id="org.eclipse.jdt.ui.edit.text.java.search.references.in.project"/>
 <hide_menu_item_id id="org.eclipse.jdt.ui.navigate.open.type"/>
-<hide_menu_item_id id="org.eclipse.debug.ui.commands.RunLast"/>
 <hide_menu_item_id id="org.eclipse.ui.navigate.openResource"/>
+<hide_menu_item_id id="org.eclipse.debug.ui.commands.RunLast"/>
 <hide_menu_item_id id="org.eclipse.cdt.ui.navigate.opentype"/>
 <hide_menu_item_id id="org.eclipse.jdt.ui.edit.text.java.search.implementors.in.working.set"/>
 <hide_menu_item_id id="org.eclipse.jdt.ui.edit.text.java.search.declarations.in.workspace"/>
 <hide_menu_item_id id="org.eclipse.jdt.ui.edit.text.java.open.call.hierarchy"/>
-<hide_menu_item_id id="org.eclipse.ui.project.closeProject"/>
 <hide_menu_item_id id="org.eclipse.cdt.debug.ui.actions.ResumeAtLine"/>
-<hide_menu_item_id id="org.eclipse.jdt.debug.ui.commands.ForceReturn"/>
+<hide_menu_item_id id="org.eclipse.ui.project.closeProject"/>
 <hide_menu_item_id id="org.eclipse.jdt.ui.edit.text.java.open.external.javadoc"/>
+<hide_menu_item_id id="org.eclipse.jdt.debug.ui.commands.ForceReturn"/>
 <hide_menu_item_id id="org.eclipse.ui.edit.text.shiftLeft"/>
-<hide_menu_item_id id="org.eclipse.search.ui.openSearchDialog"/>
 <hide_menu_item_id id="org.eclipse.ui.project.openProject"/>
+<hide_menu_item_id id="org.eclipse.search.ui.openSearchDialog"/>
 <hide_menu_item_id id="org.eclipse.cdt.debug.ui.command.reverseToggle"/>
-<hide_menu_item_id id="org.eclipse.cdt.ui.edit.text.rename.element"/>
 <hide_menu_item_id id="org.eclipse.debug.internal.ui.actions.ProfileWithConfigurationAction"/>
-<hide_menu_item_id id="org.eclipse.jdt.debug.ui.commands.AddExceptionBreakpoint"/>
+<hide_menu_item_id id="org.eclipse.cdt.ui.edit.text.rename.element"/>
 <hide_menu_item_id id="org.eclipse.mylyn.tasks.ui.command.goToPreviousUnread"/>
-<hide_menu_item_id id="org.eclipse.jdt.ui.edit.text.java.search.references.in.hierarchy"/>
+<hide_menu_item_id id="org.eclipse.jdt.debug.ui.commands.AddExceptionBreakpoint"/>
 <hide_menu_item_id id="org.eclipse.jdt.ui.source.menu"/>
+<hide_menu_item_id id="org.eclipse.jdt.ui.edit.text.java.search.references.in.hierarchy"/>
 <hide_menu_item_id id="org.eclipse.cdt.ui.edit.text.c.format"/>
-<hide_menu_item_id id="org.eclipse.jdt.ui.edit.text.java.search.declarations.in.working.set"/>
 <hide_menu_item_id id="org.eclipse.cdt.debug.ui.command.reverseStepOver"/>
+<hide_menu_item_id id="org.eclipse.jdt.ui.edit.text.java.search.declarations.in.working.set"/>
 <hide_menu_item_id id="org.eclipse.cdt.ui.refactor.extract.local.variable"/>
-<hide_menu_item_id id="org.eclipse.cdt.ui.edit.text.c.toggle.comment"/>
 <hide_menu_item_id id="org.eclipse.ui.navigate.forward"/>
-<hide_menu_item_id id="org.eclipse.search.ui.performTextSearchProject"/>
+<hide_menu_item_id id="org.eclipse.cdt.ui.edit.text.c.toggle.comment"/>
 <hide_menu_item_id id="org.eclipse.cdt.ui.edit.open.type.hierarchy"/>
+<hide_menu_item_id id="org.eclipse.search.ui.performTextSearchProject"/>
 <hide_menu_item_id id="org.eclipse.cdt.ui.edit.text.c.remove.block.comment"/>
 <hide_toolbar_item_id id="org.eclipse.debug.ui.commands.RunToLine"/>
 <hide_toolbar_item_id id="com.ti.dvt.profile.setup.actionSet"/>
 <hide_toolbar_item_id id="org.eclipse.ui.file.print"/>
 <hide_toolbar_item_id id="org.eclipse.ui.externaltools.ExternalToolMenuDelegateToolbar"/>
 <hide_toolbar_item_id id="org.eclipse.debug.ui.commands.Terminate"/>
-<hide_toolbar_item_id id="org.eclipse.debug.ui.commands.StepReturn"/>
 <hide_toolbar_item_id id="org.eclipse.mylyn.cdt.ui.editor.folding.auto"/>
+<hide_toolbar_item_id id="org.eclipse.debug.ui.commands.StepReturn"/>
 <hide_toolbar_item_id id="org.eclipse.debug.ui.commands.SkipAllBreakpoints"/>
-<hide_toolbar_item_id id="org.eclipse.cdt.ui.edit.text.c.toggleMarkOccurrences"/>
 <hide_toolbar_item_id id="org.eclipse.egit.ui.commit.OpenCommitAction"/>
+<hide_toolbar_item_id id="org.eclipse.cdt.ui.edit.text.c.toggleMarkOccurrences"/>
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowWhitespaceCharacters"/>
 <hide_toolbar_item_id id="org.eclipse.ui.workbench.navigate"/>
 <hide_toolbar_item_id id="org.eclipse.debug.ui.commands.StepOver"/>
@@ -630,60 +648,85 @@
 <hide_toolbar_item_id id="org.eclipse.jdt.ui.actions.OpenProjectWizard"/>
 <hide_toolbar_item_id id="org.eclipse.debug.ui.commands.StepInto"/>
 <hide_toolbar_item_id id="org.eclipse.debug.ui.commands.Disconnect"/>
-<hide_toolbar_item_id id="org.eclipse.debug.ui.commands.ToggleStepFilters"/>
 <hide_toolbar_item_id id="org.eclipse.ui.navigate.backwardHistory"/>
+<hide_toolbar_item_id id="org.eclipse.debug.ui.commands.ToggleStepFilters"/>
 <hide_toolbar_item_id id="org.eclipse.ui.navigate.previous"/>
-<hide_toolbar_item_id id="com.ti.dvt.profile2.setup.action.enableProfile"/>
 <hide_toolbar_item_id id="org.eclipse.debug.ui.commands.Suspend"/>
+<hide_toolbar_item_id id="com.ti.dvt.profile2.setup.action.enableProfile"/>
 <hide_toolbar_item_id id="com.ti.dvt.profile.setup.action.enableProfile"/>
 <hide_toolbar_item_id id="org.eclipse.ui.edit.text.toggleShowSelectedElementOnly"/>
 <hide_toolbar_item_id id="org.eclipse.ui.navigate.next"/>
 <hide_toolbar_item_id id="org.eclipse.debug.internal.ui.actions.RunDropDownAction"/>
-<view id="org.eclipse.debug.ui.DebugView"/>
-<view id="org.eclipse.debug.ui.VariableView"/>
-<view id="org.eclipse.debug.ui.ExpressionView"/>
-<view id="org.eclipse.debug.ui.RegisterView"/>
-<view id="org.eclipse.ui.console.ConsoleView"/>
-<fastViews>&#x0A;<view id="com.ti.ccstudio.system.setup.ui.views.TargetConfigurationView" ratio="0.3"/>
+<fastViews>
+<view id="com.ti.ccstudio.system.setup.ui.views.TargetConfigurationView" ratio="0.3"/>
 </fastViews>
-<fastViewBars/>
-<layout>&#x0A;<mainWindow>&#x0A;<info folder="true" part="left">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.navigator.ProjectExplorer" label="LabelNotFound"/>
+<fastViewBars>
+<fastViewBar fastViewLocation="131072" id="topRight" orientation="256" selectedTabId="org.eclipse.debug.ui.ExpressionView" style="1">
+<fastViews>
+<view id="org.eclipse.debug.ui.VariableView" ratio="0.3"/>
+<view id="org.eclipse.debug.ui.ExpressionView" ratio="0.3"/>
+<view id="org.eclipse.debug.ui.RegisterView" ratio="0.3"/>
+</fastViews>
+</fastViewBar>
+<fastViewBar fastViewLocation="16384" id="topLeft" orientation="256" selectedTabId="org.eclipse.debug.ui.DebugView" style="1">
+<fastViews>
+<view id="org.eclipse.debug.ui.DebugView" ratio="0.3"/>
+</fastViews>
+</fastViewBar>
+<fastViewBar fastViewLocation="1024" id="org.eclipse.ui.internal.ViewStack@f4acd1" orientation="256" selectedTabId="org.eclipse.ui.console.ConsoleView" style="1">
+<fastViews>
+<view id="org.eclipse.ui.console.ConsoleView" ratio="0.3"/>
+</fastViews>
+</fastViewBar>
+</fastViewBars>
+<layout>
+<mainWindow>
+<info folder="true" part="left">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.ui.navigator.ProjectExplorer" label="LabelNotFound"/>
 </folder>
 </info>
-<info folder="true" part="stickyFolderRight" ratio="0.8294525" ratioLeft="1318" ratioRight="271" relationship="2" relative="left">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
+<info folder="true" part="stickyFolderRight" ratio="0.8294525" ratioLeft="1318" ratioRight="271" relationship="2" relative="left">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.internal.introview" label="LabelNotFound"/>
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="topLeft" ratio="0.25" ratioLeft="398" ratioRight="1194" relationship="2" relative="left">&#x0A;<folder activePageID="org.eclipse.debug.ui.DebugView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.DebugView" label="Debug"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
-</presentation>
+<info folder="true" part="topLeft" ratio="0.25" ratioLeft="398" ratioRight="1194" relationship="2" relative="left">
+<folder appearance="2" expanded="0">
+<page content="org.eclipse.debug.ui.DebugView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info part="org.eclipse.ui.editorss" ratio="0.28457448" ratioLeft="214" ratioRight="538" relationship="4" relative="topLeft"/>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@f4acd1" ratio="0.6984127" ratioLeft="396" ratioRight="171" relationship="4" relative="org.eclipse.ui.editorss">&#x0A;<folder activePageID="org.eclipse.ui.console.ConsoleView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.console.ConsoleView" label="Console"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
-</presentation>
+<info part="org.eclipse.ui.editorss" ratio="0.25930852" ratioLeft="195" ratioRight="557" relationship="4" relative="topLeft"/>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@f4acd1" ratio="0.60792077" ratioLeft="307" ratioRight="198" relationship="4" relative="org.eclipse.ui.editorss">
+<folder appearance="2" expanded="0">
+<page content="org.eclipse.ui.console.ConsoleView" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info folder="true" part="bottomRight" ratio="0.5" ratioLeft="796" ratioRight="796" relationship="2" relative="org.eclipse.ui.internal.ViewStack@f4acd1">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="com.ti.ccstudio.scripting.console.ConsoleView" label="LabelNotFound"/>
+<info folder="true" part="bottomRight" ratio="0.5" ratioLeft="796" ratioRight="796" relationship="2" relative="org.eclipse.ui.internal.ViewStack@f4acd1">
+<folder appearance="2" expanded="2">
+<page content="com.ti.ccstudio.scripting.console.ConsoleView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.ProblemView" label="LabelNotFound"/>
 </folder>
 </info>
-<info folder="true" part="right" ratio="0.69974875" ratioLeft="1114" ratioRight="478" relationship="2" relative="org.eclipse.ui.editorss">&#x0A;<folder appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ContentOutline" label="LabelNotFound"/>
+<info folder="true" part="right" ratio="0.69974875" ratioLeft="1114" ratioRight="478" relationship="2" relative="org.eclipse.ui.editorss">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ContentOutline" label="LabelNotFound"/>
 <page content="org.eclipse.cdt.dsf.debug.ui.disassembly.view" label="LabelNotFound"/>
 <page content="org.eclipse.cdt.debug.ui.memory.memorybrowser.MemoryBrowser" label="LabelNotFound"/>
 </folder>
 </info>
-<info folder="true" part="topRight" ratio="0.44974875" ratioLeft="716" ratioRight="876" relationship="2" relative="topLeft">&#x0A;<folder activePageID="org.eclipse.debug.ui.RegisterView" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.debug.ui.VariableView" label="Variables"/>
-<page content="org.eclipse.debug.ui.ExpressionView" label="Expressions"/>
-<page content="org.eclipse.debug.ui.RegisterView" label="Registers"/>
+<info folder="true" part="topRight" ratio="0.44974875" ratioLeft="716" ratioRight="876" relationship="2" relative="topLeft">
+<folder appearance="2" expanded="0">
+<page content="org.eclipse.debug.ui.VariableView" label="LabelNotFound"/>
+<page content="org.eclipse.debug.ui.ExpressionView" label="LabelNotFound"/>
+<page content="org.eclipse.debug.ui.RegisterView" label="LabelNotFound"/>
 <page content="org.eclipse.debug.ui.BreakpointView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">&#x0A;<part id="0"/>
-<part id="1"/>
-<part id="2"/>
-</presentation>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
 </mainWindow>
@@ -693,142 +736,164 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.cdt.ui.ExternalEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="C:\ti\ccsv5\ccs_base\msp430\include\msp430g2553.h" project="msp430g2xx3_dco_flashcal"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ManchesterDecoder/msp430g2xx3_dco_flashcal.c"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/msp430g2xx3_ta_02/msp430g2xx3_ta_02.c"/>
+<editor factoryID="org.eclipse.cdt.ui.ExternalEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="C:\ti\ccsv5\ccs_base\msp430\include\msp430g2553.h" project="ManchesterDecoder"/>
+<editor factoryID="org.eclipse.cdt.ui.ExternalEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="C:\ti\ccsv5\ccs_base\msp430\include\msp430g2553.h" project="ManchesterDecoder"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/MasterControl/main.c"/>
+<editor factoryID="org.eclipse.cdt.ui.ExternalEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="C:\ti\ccsv5\ccs_base\msp430\include\msp430g2553.h" project="ManchesterDecoder"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ManchesterDecoder/msp430g2xx3_dco_flashcal.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/ManchesterDecoder/Decode_Manchester.c"/>
 <editor factoryID="com.ti.ccstudio.resource.explorer.editor.elementFactory" id="com.ti.ccstudio.resource.explorer.editor.resourceExplorer" name="TI Resource Explorer"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/msp430g2xx3_ta_10/msp430g2xx3_ta_10.c"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/msp430g2xx3_ta_uart2400/msp430g2xx3_ta_uart2400.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.ti.ccstudio.ui.cmdFileEditor" path="/ManchesterDecoder/lnk_msp430g2553.cmd"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/RFID_uC_Pullup_working/Decode_Manchester.c"/>
 </editors>
-<item historyLabel="msp430g2xx3_dco_flashcal.c" index="1">
-<position info="not_deleted" x="5931" y="0"/>
+<item historyLabel="msp430g2xx3_dco_flashcal.c" index="0">
+<position info="not_deleted" x="6270" y="0"/>
 </item>
-<item historyLabel="msp430g2553.h" index="0">
+<item historyLabel="msp430g2xx3_dco_flashcal.c" index="0">
+<position info="not_deleted" x="6417" y="0"/>
+</item>
+<item historyLabel="msp430g2xx3_dco_flashcal.c" index="0">
+<position info="not_deleted" x="6416" y="0"/>
+</item>
+<item historyLabel="msp430g2xx3_dco_flashcal.c" index="0">
+<position info="not_deleted" x="5026" y="0"/>
+</item>
+<item historyLabel="msp430g2xx3_dco_flashcal.c" index="0">
+<position info="not_deleted" x="4773" y="0"/>
+</item>
+<item historyLabel="msp430g2xx3_dco_flashcal.c" index="0">
+<position info="not_deleted" x="5241" y="0"/>
+</item>
+<item historyLabel="msp430g2xx3_dco_flashcal.c" index="0">
+<position info="not_deleted" x="5240" y="0"/>
+</item>
+<item historyLabel="msp430g2xx3_dco_flashcal.c" index="0">
+<position info="not_deleted" x="6469" y="0"/>
+</item>
+<item historyLabel="msp430g2xx3_dco_flashcal.c" index="0">
+<position info="not_deleted" x="6701" y="0"/>
+</item>
+<item historyLabel="msp430g2xx3_dco_flashcal.c" index="0">
+<position info="not_deleted" x="7634" y="0"/>
+</item>
+<item historyLabel="msp430g2xx3_dco_flashcal.c" index="0">
+<position info="not_deleted" x="7264" y="0"/>
+</item>
+<item historyLabel="msp430g2xx3_dco_flashcal.c" index="0">
+<position info="not_deleted" x="7140" y="0"/>
+</item>
+<item historyLabel="msp430g2xx3_dco_flashcal.c" index="0">
+<position info="not_deleted" x="7239" y="0"/>
+</item>
+<item historyLabel="msp430g2xx3_dco_flashcal.c" index="0">
+<position info="not_deleted" x="7368" y="0"/>
+</item>
+<item historyLabel="msp430g2xx3_dco_flashcal.c" index="0">
 <position/>
 </item>
-<item historyLabel="msp430g2xx3_dco_flashcal.c" index="1">
-<position info="not_deleted" x="5931" y="0"/>
+<item historyLabel="msp430g2553.h" index="1">
+<position info="not_deleted" x="26492" y="5"/>
 </item>
-<item historyLabel="msp430g2xx3_ta_02.c" index="2">
-<position/>
+<item historyLabel="msp430g2xx3_dco_flashcal.c" index="0">
+<position info="not_deleted" x="7656" y="0"/>
 </item>
-<item historyLabel="msp430g2553.h" index="0">
-<position/>
+<item historyLabel="msp430g2xx3_dco_flashcal.c" index="0">
+<position info="not_deleted" x="7625" y="11"/>
 </item>
-<item historyLabel="msp430g2xx3_dco_flashcal.c" index="1">
-<position info="not_deleted" x="6471" y="0"/>
+<item historyLabel="msp430g2xx3_dco_flashcal.c" index="0">
+<position info="not_deleted" x="7561" y="0"/>
 </item>
-<item historyLabel="msp430g2553.h" index="0">
-<position/>
+<item historyLabel="msp430g2xx3_dco_flashcal.c" index="0">
+<position info="not_deleted" x="7476" y="0"/>
 </item>
-<item historyLabel="msp430g2xx3_dco_flashcal.c" index="1">
-<position info="not_deleted" x="7440" y="0"/>
+<item historyLabel="msp430g2553.h" index="2">
+<position info="not_deleted" x="26492" y="5"/>
 </item>
-<item historyLabel="msp430g2553.h" index="0">
-<position/>
+<item historyLabel="main.c" index="3">
+<position info="not_deleted" x="4314" y="0"/>
 </item>
-<item historyLabel="msp430g2xx3_dco_flashcal.c" index="1">
-<position info="not_deleted" x="6522" y="0"/>
+<item historyLabel="msp430g2xx3_dco_flashcal.c" index="0">
+<position info="not_deleted" x="5231" y="0"/>
 </item>
-<item historyLabel="msp430g2553.h" index="0">
-<position/>
+<item historyLabel="msp430g2553.h" index="4">
+<position info="not_deleted" x="26492" y="5"/>
 </item>
-<item historyLabel="msp430g2xx3_dco_flashcal.c" index="1">
-<position info="not_deleted" x="6522" y="0"/>
+<item historyLabel="msp430g2xx3_dco_flashcal.c" index="5">
+<position info="not_deleted" x="7695" y="0"/>
 </item>
-<item historyLabel="msp430g2xx3_ta_02.c" index="2">
-<position/>
+<item historyLabel="msp430g2553.h" index="4">
+<position info="not_deleted" x="26492" y="5"/>
 </item>
-<item historyLabel="msp430g2xx3_dco_flashcal.c" index="1">
-<position info="not_deleted" x="6522" y="0"/>
+<item historyLabel="Decode_Manchester.c" index="6">
+<position info="not_deleted" x="4281" y="0"/>
 </item>
-<item historyLabel="msp430g2xx3_ta_02.c" index="2">
-<position/>
+<item historyLabel="msp430g2553.h" index="4">
+<position info="not_deleted" x="29050" y="15"/>
 </item>
-<item historyLabel="msp430g2xx3_dco_flashcal.c" index="1">
-<position/>
+<item historyLabel="TI Resource Explorer" index="7"/>
+<item historyLabel="msp430g2553.h" index="4">
+<position info="not_deleted" x="29050" y="15"/>
 </item>
-<item historyLabel="msp430g2553.h" index="0">
-<position/>
+<item historyLabel="Decode_Manchester.c" index="6">
+<position info="not_deleted" x="3764" y="0"/>
 </item>
-<item historyLabel="msp430g2xx3_dco_flashcal.c" index="1">
-<position/>
-</item>
-<item historyLabel="msp430g2xx3_dco_flashcal.c" index="1">
-<position info="not_deleted" x="4856" y="0"/>
-</item>
-<item historyLabel="msp430g2xx3_dco_flashcal.c" index="1">
-<position/>
-</item>
-<item historyLabel="msp430g2xx3_dco_flashcal.c" index="1">
-<position info="not_deleted" x="4757" y="0"/>
-</item>
-<item historyLabel="msp430g2xx3_dco_flashcal.c" index="1">
-<position info="not_deleted" x="6075" y="0"/>
-</item>
-<item historyLabel="msp430g2xx3_dco_flashcal.c" index="1">
-<position info="not_deleted" x="7617" y="0"/>
-</item>
-<item historyLabel="msp430g2xx3_ta_02.c" index="2">
-<position/>
-</item>
-<item historyLabel="msp430g2xx3_dco_flashcal.c" index="1">
-<position/>
-</item>
-<item historyLabel="msp430g2xx3_dco_flashcal.c" index="1">
-<position info="not_deleted" x="7641" y="0"/>
-</item>
-<item historyLabel="msp430g2553.h" index="0">
-<position/>
-</item>
-<item historyLabel="msp430g2xx3_dco_flashcal.c" index="1">
-<position info="not_deleted" x="6454" y="0"/>
-</item>
-<item historyLabel="msp430g2553.h" index="0">
-<position/>
-</item>
-<item historyLabel="msp430g2xx3_dco_flashcal.c" index="1">
-<position info="not_deleted" x="7436" y="0"/>
-</item>
-<item historyLabel="msp430g2553.h" index="0">
-<position info="not_deleted" x="57506" y="16"/>
-</item>
-<item historyLabel="msp430g2xx3_dco_flashcal.c" index="1">
-<position info="not_deleted" x="6491" y="0"/>
-</item>
-<item historyLabel="msp430g2553.h" index="0">
-<position info="not_deleted" x="34350" y="4"/>
-</item>
-<item historyLabel="msp430g2xx3_dco_flashcal.c" index="1">
-<position info="not_deleted" x="5903" y="0"/>
-</item>
-<item historyLabel="msp430g2553.h" index="0">
-<position info="not_deleted" x="29532" y="7"/>
-</item>
-<item historyLabel="msp430g2xx3_dco_flashcal.c" index="1">
-<position info="not_deleted" x="5903" y="0"/>
-</item>
-<item historyLabel="TI Resource Explorer" index="3"/>
-<item historyLabel="msp430g2xx3_ta_10.c" index="4">
-<position/>
-</item>
-<item historyLabel="msp430g2553.h" index="0">
-<position info="not_deleted" x="35107" y="8"/>
-</item>
-<item historyLabel="msp430g2xx3_ta_10.c" index="4">
-<position/>
-</item>
-<item historyLabel="TI Resource Explorer" index="3"/>
-<item historyLabel="msp430g2xx3_ta_10.c" index="4">
-<position info="not_deleted" x="2193" y="0"/>
-</item>
-<item historyLabel="TI Resource Explorer" index="3"/>
-<item historyLabel="msp430g2xx3_ta_uart2400.c" index="5">
+<item historyLabel="lnk_msp430g2553.cmd" index="8">
 <position info="not_deleted" x="0" y="0"/>
 </item>
-<item historyLabel="TI Resource Explorer" index="3"/>
-<item active="true" historyLabel="msp430g2xx3_dco_flashcal.c" index="1">
-<position info="not_deleted" x="5903" y="0"/>
+<item historyLabel="Decode_Manchester.c" index="6">
+<position info="not_deleted" x="2212" y="7"/>
+</item>
+<item historyLabel="lnk_msp430g2553.cmd" index="8">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Decode_Manchester.c" index="6">
+<position info="not_deleted" x="2212" y="7"/>
+</item>
+<item historyLabel="Decode_Manchester.c" index="6">
+<position info="not_deleted" x="2107" y="0"/>
+</item>
+<item historyLabel="lnk_msp430g2553.cmd" index="8">
+<position info="not_deleted" x="6248" y="0"/>
+</item>
+<item historyLabel="Decode_Manchester.c" index="6">
+<position info="not_deleted" x="4151" y="0"/>
+</item>
+<item historyLabel="Decode_Manchester.c" index="9">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Decode_Manchester.c" index="6">
+<position info="not_deleted" x="4151" y="0"/>
+</item>
+<item historyLabel="Decode_Manchester.c" index="9">
+<position info="not_deleted" x="1819" y="0"/>
+</item>
+<item historyLabel="Decode_Manchester.c" index="6">
+<position/>
+</item>
+<item historyLabel="Decode_Manchester.c" index="9">
+<position info="not_deleted" x="4040" y="0"/>
+</item>
+<item historyLabel="Decode_Manchester.c" index="6">
+<position/>
+</item>
+<item historyLabel="Decode_Manchester.c" index="9">
+<position info="not_deleted" x="4261" y="0"/>
+</item>
+<item historyLabel="Decode_Manchester.c" index="6">
+<position/>
+</item>
+<item historyLabel="Decode_Manchester.c" index="9">
+<position info="not_deleted" x="3530" y="0"/>
+</item>
+<item historyLabel="Decode_Manchester.c" index="6">
+<position/>
+</item>
+<item historyLabel="Decode_Manchester.c" index="9">
+<position info="not_deleted" x="3530" y="0"/>
+</item>
+<item active="true" historyLabel="Decode_Manchester.c" index="9">
+<position info="not_deleted" x="4038" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -836,6 +901,15 @@
 <workbenchWindowAdvisor/>
 <actionBarAdvisor/>
 <trimLayout>
+<trimArea IMemento.internal.id="16384">
+<trimItem IMemento.internal.id="left"/>
+<trimItem IMemento.internal.id="topLeft"/>
+</trimArea>
+<trimArea IMemento.internal.id="131072">
+<trimItem IMemento.internal.id="bottomRight"/>
+<trimItem IMemento.internal.id="right"/>
+<trimItem IMemento.internal.id="topRight"/>
+</trimArea>
 <trimArea IMemento.internal.id="128">
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
 <trimItem IMemento.internal.id="org.eclipse.mylyn.tasks.ui.trim.container"/>
@@ -847,21 +921,38 @@
 <trimItem IMemento.internal.id="com.ti.ccstudio.debug.ui.profileClockStatus"/>
 <trimItem IMemento.internal.id="org.eclipse.jface.action.StatusLineManager"/>
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.progress.ProgressRegion"/>
+<trimItem IMemento.internal.id="bottomLeft"/>
+<trimItem IMemento.internal.id="org.eclipse.ui.internal.ViewStack@f4acd1"/>
 </trimArea>
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="com.ti.ccstudio.resource.explorer.editor.elementFactory" id="com.ti.ccstudio.resource.explorer.editor.resourceExplorer" name="TI Resource Explorer" tooltip="TI Resource Explorer">
-<persistable name="TI Resource Explorer"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="Decode_Manchester.c" tooltip="RFID_uC_Pullup_working/Decode_Manchester.c">
+<persistable path="/RFID_uC_Pullup_working/Decode_Manchester.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.ti.ccstudio.ui.cmdFileEditor" name="lnk_msp430g2553.cmd" tooltip="ManchesterDecoder/lnk_msp430g2553.cmd">
+<persistable path="/ManchesterDecoder/lnk_msp430g2553.cmd"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="Decode_Manchester.c" tooltip="ManchesterDecoder/Decode_Manchester.c">
+<persistable path="/ManchesterDecoder/Decode_Manchester.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="main.c" tooltip="MasterControl/main.c">
+<persistable path="/MasterControl/main.c"/>
 </file>
 <file factoryID="org.eclipse.cdt.ui.ExternalEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="msp430g2553.h" tooltip="C:\ti\ccsv5\ccs_base\msp430\include\msp430g2553.h">
 <persistable path="C:\ti\ccsv5\ccs_base\msp430\include\msp430g2553.h" project="ManchesterDecoder"/>
 </file>
+<file factoryID="com.ti.ccstudio.resource.explorer.editor.elementFactory" id="com.ti.ccstudio.resource.explorer.editor.resourceExplorer" name="TI Resource Explorer" tooltip="TI Resource Explorer">
+<persistable name="TI Resource Explorer"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="msp430g2xx3_ta_16.c" tooltip="msp430g2xx3_ta_16/msp430g2xx3_ta_16.c">
+<persistable path="/msp430g2xx3_ta_16/msp430g2xx3_ta_16.c"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="msp430g2xx3_ta_02.c" tooltip="msp430g2xx3_ta_02/msp430g2xx3_ta_02.c">
+<persistable path="/msp430g2xx3_ta_02/msp430g2xx3_ta_02.c"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="msp430g2xx3_dco_flashcal.c" tooltip="ManchesterDecoder/msp430g2xx3_dco_flashcal.c">
 <persistable path="/ManchesterDecoder/msp430g2xx3_dco_flashcal.c"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="main.c" tooltip="MasterControl/main.c">
-<persistable path="/MasterControl/main.c"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="msp430g2xx3_ta_06.c" tooltip="msp430g2xx3_ta_06/msp430g2xx3_ta_06.c">
 <persistable path="/msp430g2xx3_ta_06/msp430g2xx3_ta_06.c"/>
@@ -871,9 +962,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="msp430g2xx3_dco_flashcal.c" tooltip="msp430g2xx3_dco_flashcal/msp430g2xx3_dco_flashcal.c">
 <persistable path="/msp430g2xx3_dco_flashcal/msp430g2xx3_dco_flashcal.c"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="msp430g2xx3_ta_16.c" tooltip="msp430g2xx3_ta_16/msp430g2xx3_ta_16.c">
-<persistable path="/msp430g2xx3_ta_16/msp430g2xx3_ta_16.c"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="msp430g2xx3_ta_21.c" tooltip="msp430g2xx3_ta_21/msp430g2xx3_ta_21.c">
 <persistable path="/msp430g2xx3_ta_21/msp430g2xx3_ta_21.c"/>

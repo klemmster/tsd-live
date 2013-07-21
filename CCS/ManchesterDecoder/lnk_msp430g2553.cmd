@@ -108,10 +108,10 @@ SECTIONS
     /* MSP430 INTERRUPT VECTORS          */
     .int00       : {}               > INT00
     .int01       : {}               > INT01
-    PORT1        : { * ( .int02 ) } > INT02 type = VECT_INIT
+//    PORT1        : { * ( .int02 ) } > INT02 type = VECT_INIT
     PORT2        : { * ( .int03 ) } > INT03 type = VECT_INIT
     .int04       : {}               > INT04
-    ADC10        : { * ( .int05 ) } > INT05 type = VECT_INIT
+/*    ADC10        : { * ( .int05 ) } > INT05 type = VECT_INIT
     USCIAB0TX    : { * ( .int06 ) } > INT06 type = VECT_INIT
     USCIAB0RX    : { * ( .int07 ) } > INT07 type = VECT_INIT
     TIMER0_A1    : { * ( .int08 ) } > INT08 type = VECT_INIT
@@ -121,6 +121,7 @@ SECTIONS
     TIMER1_A1    : { * ( .int12 ) } > INT12 type = VECT_INIT
     TIMER1_A0    : { * ( .int13 ) } > INT13 type = VECT_INIT
     NMI          : { * ( .int14 ) } > INT14 type = VECT_INIT
+    */
     .reset       : {}               > RESET  /* MSP430 RESET VECTOR         */ 
 }
 

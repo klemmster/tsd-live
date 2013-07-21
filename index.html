@@ -4,45 +4,61 @@
     <meta charset="utf-8" />
     <title></title>
     <meta name="description" content="Description of the content of this web page." />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <script type="text/javascript" src="autobahn.min.js"></script>
     <script type="text/javascript" src="smoothie.js"></script>
     <script type="text/javascript" src="custom.js"></script>
 </head>
 <body>
-    <div>
-    <p>Temperatur<p>
-    <canvas id="graph_1" width="400" height="100"></canvas>
-    </div>
-    <div>
-    <p>Radar<p>
-    <canvas id="graph_2" width="400" height="100"></canvas>
-    </div>
-    <div>
-    <p>Leistung<p>
-    <canvas id="graph_3" width="400" height="100"></canvas>
-    </div>
-    <div>
-    <p>Dummy<p>
-    <canvas id="graph_4" width="400" height="100"></canvas>
-    </div>
-    <div>
-    <p>Dummy<p>
-    <canvas id="graph_5" width="400" height="100"></canvas>
-    </div>
-    <div>
-    <p>Dummy<p>
-    <canvas id="graph_6" width="400" height="100"></canvas>
-    </div>
-    <div>
-    <p>Dummy<p>
-    <canvas id="graph_7" width="400" height="100"></canvas>
-    </div>
-    <div>
-    <p>Dummy<p>
-    <canvas id="graph_8" width="400" height="100"></canvas>
-    </div>
-    <div>
-    <p>Dummy<p>
-    <canvas id="graph_9" width="400" height="100"></canvas>
-    </div>
+	<script src="jquery.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span4">
+				<h3>Temperatur</h3>
+				<canvas id="graph_1" width="400" height="100"></canvas>
+			</div>
+			<div class="span4">
+				<h3>Radar</h3>
+				<canvas id="graph_2" width="400" height="100"></canvas>
+			</div>
+			<div class="span4">
+				<h3>Leistung</h3>
+				<canvas id="graph_3" width="400" height="100"></canvas>
+				<br/>
+				<button class="btn btn-info">Start</button>
+				<button class="btn btn-warning">Stop</button>
+			</div>
+		</div>
+
+		<div class="row-fluid">
+			<div class="span4">
+				<h3>Dummy</h3>
+				<canvas id="graph_4" width="400" height="100"></canvas>
+			</div>
+			<div class="span4">
+				<h3>Dummy</h3>
+				<canvas id="graph_5" width="400" height="100"></canvas>
+			</div>
+			<div class="span4">
+				<h3>Dummy</h3>
+				<canvas id="graph_6" width="400" height="100"></canvas>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span4">
+				<h3>Dummy</h3>
+				<canvas id="graph_7" width="400" height="100"></canvas>
+			</div>
+			<div class="span4">
+				<h3>Dummy</h3>
+				<canvas id="graph_8" width="400" height="100"></canvas>
+			</div>
+			<div class="span4">
+				<h3>Dummy</h3>
+				<canvas id="graph_9" width="400" height="100"></canvas>
+			</div>
+		</div>
+	</div>
 </body>

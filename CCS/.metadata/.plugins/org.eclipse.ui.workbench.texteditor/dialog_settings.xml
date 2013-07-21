@@ -2,29 +2,30 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="257" key="DIALOG_WIDTH"/>
-		<item value="248" key="DIALOG_Y_ORIGIN"/>
-		<item value="1077" key="DIALOG_X_ORIGIN"/>
-		<item value="380" key="DIALOG_HEIGHT"/>
+		<item value="492" key="DIALOG_Y_ORIGIN"/>
+		<item value="376" key="DIALOG_HEIGHT"/>
+		<item value="1088" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="casesensitive"/>
 		<item value="false" key="isRegEx"/>
+		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="Timer A" key="selection"/>
+		<item value="P1OUT" key="selection"/>
 		<list key="findhistory">
-			<item value="Timer A"/>
-			<item value="Timer B"/>
-			<item value="TACTL"/>
+			<item value="p1out"/>
+			<item value="LOW_TO"/>
 			<item value="P1OUT"/>
-			<item value="IFG"/>
-			<item value="CCIFG"/>
-			<item value="UP to"/>
-			<item value="UP"/>
+			<item value="P1"/>
+			<item value="Bit"/>
+			<item value="^= Bit"/>
+			<item value="^= Px_1"/>
+			<item value="lastCorrec"/>
 		</list>
 		<list key="replacehistory">
+			<item value="TA0CCR0"/>
 		</list>
 	</section>
 </section>

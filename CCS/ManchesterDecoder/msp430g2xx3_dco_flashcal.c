@@ -84,14 +84,15 @@
 
 volatile unsigned int i;
 
-volatile unsigned int lastTime;
 volatile unsigned char isSyncing;
 volatile unsigned char isSynced;
 volatile unsigned char currentBit;
 volatile unsigned char nextBit;
+volatile unsigned char parityIndex;
 
 volatile unsigned char inBufferIndex;
-volatile unsigned char inBuffer[8];
+volatile unsigned char dataIndex;
+volatile unsigned int inBuffer[50];
 
 volatile unsigned char expectShortEdge;
 volatile unsigned char receivedHeader;
@@ -106,9 +107,23 @@ volatile unsigned int T2Min = 200; //T2 - Ttolerance;
 volatile unsigned int TMax = 200; //T + Ttolerance;
 volatile unsigned int TMin = 103; //T - Ttolerance;
 
-volatile unsigned int treshold = 12;
+volatile uint32_t lastTagID = 0;
+
 volatile uint16_t headerBits = 0; //Header 9 bits 1 == header done
 
+#define RESET() { \
+		isSyncing = False; \
+		isSynced = False; \
+		inBufferIndex = 0; \
+		dataIndex = 0; \
+		expectShortEdge = False; \
+		receivedHeader = False; \
+		headerBits = 0; \
+		parityIndex = 0; \
+		lastTagID = 0; \
+		P1OUT &= ~BIT0; \
+		P1OUT &= ~BIT6; \
+} \
 
 inline void startSync(void);
 void setupPins(void);
@@ -118,22 +133,11 @@ int main(void)
   WDTCTL = WDTPW + WDTHOLD;                 // Stop WDT
   //for (i = 0; i < 0xfffe; i++);             // Delay for XTAL stabilization
 
-  inBufferIndex = 0;
-  isSyncing = False;
-  isSynced = False;
-  expectShortEdge = False;
-  receivedHeader = False;
-
+  RESET();
   BCSCTL1 = CALBC1_16MHZ;					// Set DCO to 16MHz
   DCOCTL = CALDCO_16MHZ;					// Set DCP to 16MHz
 
   BCSCTL2 = SELM_0 + DIVM_0 + DIVS_3;		// Select DCO as MCLK; MCLK / 1 + SMCLK / 8
-
-	//TEMPORALILY Enable LED OUTPUT
-	P1OUT = 0x00;                             // Clear P1 output latches
-	P1SEL = 0x10;                             // P1.4 SMCLK output
-	P1DIR = BIT0;                             // P1.0,4 output
-	//END TEMPORARY
 
   setupPins();
 
@@ -164,26 +168,25 @@ __interrupt void PORT2_ISR(void)
 	}
 	P2IES ^= BIT1;								//Flip edge detect direction
 	TA0R = 0;
-	P1OUT ^= 0x01;                            // Toggle P1.0
-
 
 	//Start Data Processing
 	if(!isSynced){
 		if (T2Min < TA0CCR0 && TA0CCR0 < T2Max){
 			isSynced = True;
+			currentBit = (P2IN >> 1) & 0x01;
+			return;
 		}
 	}
 	if(isSynced){
 		if (expectShortEdge)
 		{
 			expectShortEdge = False;
-			if (T2Min < TA0CCR0 && TA0CCR0 < T2Max)
+			if (TMin < TA0CCR0 && TA0CCR0 < TMax)
 			{
-				//TODO: Handle Error
-				return;
-			}else{
-				//TODO: Actually check time, error bucket
 				nextBit = currentBit;
+			}else{
+				RESET();
+				return;
 			}
 		}
 		else
@@ -192,15 +195,12 @@ __interrupt void PORT2_ISR(void)
 			{
 				expectShortEdge = True;
 				return;
-			}
-			else if (T2Min < TA0CCR0 && TA0CCR0 < T2Max)
+			}else if (T2Min < TA0CCR0 && TA0CCR0 < T2Max)
 			{
-				nextBit ^= 0x01;
-			}
-			else
+				nextBit = currentBit ^ 0x01;
+			}else
 			{
-				isSynced = False;
-				isSyncing = False;
+				RESET();
 				return;
 			}
 		}
@@ -208,50 +208,57 @@ __interrupt void PORT2_ISR(void)
 
 	currentBit = nextBit;
 	if(!receivedHeader){
-		headerBits << 1;
+		headerBits = headerBits << 1;
 		headerBits |= nextBit;
+		headerBits &= 511;
 		if (headerBits == 511){
 			receivedHeader = True;
+			inBufferIndex = 0;
 		}
 		return;
 	}else{
-		inBuffer[inBufferIndex++] = nextBit;
-		inBufferIndex = inBufferIndex % 8;
+		if(inBufferIndex < 50){
+			inBuffer[inBufferIndex++] = nextBit;
+			if(parityIndex++ == 4){
+				parityIndex = 0;
+				if(inBuffer[inBufferIndex-5] ^ inBuffer[inBufferIndex-4] ^ inBuffer[inBufferIndex-3] ^ inBuffer[inBufferIndex-2] ^ inBuffer[inBufferIndex-1]){
+					RESET();
+					return;
+				}
+				for(i=5; i>1; i--){
+					lastTagID = lastTagID << 1;
+					lastTagID |= inBuffer[inBufferIndex-i];
+				}
+			}
+
+		}else{
+//			P1OUT = 0x01;
+			if(! (lastTagID == 0 | lastTagID == 1 )){
+				if(lastTagID == 285708 || lastTagID == 16282433){
+					P1OUT = BIT6;
+				}else{
+					P1OUT = BIT0;
+				}
+				__delay_cycles(20000000);
+			}else{
+				P1OUT = BIT0;
+				__delay_cycles(20000000);
+			}
+			RESET();
+			return;
+		}
 	}
 }
-
-/*
-// Timer A1_CC1
-#pragma vector=TIMER1_A1_VECTOR
-__interrupt void Timer1_A1 (void)
-{
-	  switch( TA1IV )
-	  {
-		  case TA1IV_TACCR1: //P1OUT ^= 0x01;                  // Toggle P1
-		  	  	  	  	  	 P2IE &= ~BIT1;					//Disable Interrupt
-		  	  	  	  	  	 P2IFG &= ~BIT1;
-							 //TA1CCR1 = 0;
-							 break;
-	  }
-}
-
-// Timer A1_CC0 interrupt service routine
-#pragma vector=TIMER1_A0_VECTOR
-__interrupt void Timer_B (void)
-{
-
-  //TA0CCR0 Fired
-  //P1OUT ^= 0x01;
-  P2IE |= BIT1;			//Enable Interrupt
-  P2IFG &= ~BIT1;
-}
-*/
 
 void setupPins(void)
 {
 	P2DIR = 0x0;
 	P2REN = 0x0;
 	P2IES = LOW_to_HIGH;
-	//P2OUT = 0;
 	P2IE = BIT1;
+
+	P1OUT = 0x00;                             // Clear P1 output latches
+	P1SEL = 0x10;                             // P1.4 SMCLK output
+	P1DIR = BIT0 | BIT6;                             // P1.0,4 output
+
 }

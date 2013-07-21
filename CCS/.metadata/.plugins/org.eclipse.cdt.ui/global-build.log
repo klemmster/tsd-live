@@ -1,17 +1,23 @@
 
-**** Build of configuration Debug for project ManchesterDecoder ****
+**** Build of configuration Debug for project RFID_uC_Pullup_working ****
 
 "C:\\ti\\ccsv5\\utils\\bin\\gmake" -k all 
-'Building file: ../msp430g2xx3_dco_flashcal.c'
+'Building file: ../Decode_Manchester.c'
 'Invoking: MSP430 Compiler'
-"C:/ti/ccsv5/tools/compiler/msp430_4.1.5/bin/cl430" -vmsp --abi=eabi -g --include_path="C:/ti/ccsv5/ccs_base/msp430/include" --include_path="C:/ti/ccsv5/tools/compiler/msp430_4.1.5/include" --advice:power=all --define=__MSP430G2553__ --diag_warning=225 --display_error_number --diag_wrap=off --printf_support=minimal --preproc_with_compile --preproc_dependency="msp430g2xx3_dco_flashcal.pp"  "../msp430g2xx3_dco_flashcal.c"
-'Finished building: ../msp430g2xx3_dco_flashcal.c'
+"C:/ti/ccsv5/tools/compiler/msp430_4.1.5/bin/cl430" -vmsp --abi=eabi -g --include_path="C:/ti/ccsv5/ccs_base/msp430/include" --include_path="C:/ti/ccsv5/tools/compiler/msp430_4.1.5/include" --advice:power=all --define=__MSP430G2553__ --diag_warning=225 --display_error_number --diag_wrap=off --printf_support=minimal --preproc_with_compile --preproc_dependency="Decode_Manchester.pp"  "../Decode_Manchester.c"
+"../Decode_Manchester.c", line 225: remark #1564-D: (ULP 14.1) Array index (involving "inBufferIndex") of type "int". Recommend using "unsigned int"
+"../Decode_Manchester.c", line 225: remark #1564-D: (ULP 14.1) Array index (involving "inBufferIndex") of type "int". Recommend using "unsigned int"
+"../Decode_Manchester.c", line 225: remark #1564-D: (ULP 14.1) Array index (involving "inBufferIndex") of type "int". Recommend using "unsigned int"
+"../Decode_Manchester.c", line 225: remark #1564-D: (ULP 14.1) Array index (involving "inBufferIndex") of type "int". Recommend using "unsigned int"
+"../Decode_Manchester.c", line 225: remark #1564-D: (ULP 14.1) Array index (involving "inBufferIndex") of type "int". Recommend using "unsigned int"
+"../Decode_Manchester.c", line 243: remark #1527-D: (ULP 2.1) Detected SW delay loop using __delay_cycles. Recommend using a timer module instead
+"../Decode_Manchester.c", line 246: remark #1527-D: (ULP 2.1) Detected SW delay loop using __delay_cycles. Recommend using a timer module instead
+'Finished building: ../Decode_Manchester.c'
 ' '
-'Building target: ManchesterDecoder.out'
+'Building target: RFID_uC_Pullup_working.out'
 'Invoking: MSP430 Linker'
-"C:/ti/ccsv5/tools/compiler/msp430_4.1.5/bin/cl430" -vmsp --abi=eabi -g --advice:power=all --define=__MSP430G2553__ --diag_warning=225 --display_error_number --diag_wrap=off --printf_support=minimal -z --stack_size=80 -m"ManchesterDecoder.map" --heap_size=80 -i"C:/ti/ccsv5/ccs_base/msp430/include" -i"C:/ti/ccsv5/tools/compiler/msp430_4.1.5/lib" -i"C:/ti/ccsv5/tools/compiler/msp430_4.1.5/include" --reread_libs --warn_sections --display_error_number --diag_wrap=off --xml_link_info="ManchesterDecoder_linkInfo.xml" --rom_model -o "ManchesterDecoder.out"  "./msp430g2xx3_dco_flashcal.obj" -l"libc.a" "../lnk_msp430g2553.cmd" 
+"C:/ti/ccsv5/tools/compiler/msp430_4.1.5/bin/cl430" -vmsp --abi=eabi -g --advice:power=all --define=__MSP430G2553__ --diag_warning=225 --display_error_number --diag_wrap=off --printf_support=minimal -z --stack_size=80 -m"RFID_uC_Pullup_working.map" --heap_size=80 -i"C:/ti/ccsv5/ccs_base/msp430/include" -i"C:/ti/ccsv5/tools/compiler/msp430_4.1.5/lib" -i"C:/ti/ccsv5/tools/compiler/msp430_4.1.5/include" --reread_libs --warn_sections --display_error_number --diag_wrap=off --xml_link_info="RFID_uC_Pullup_working_linkInfo.xml" --rom_model -o "RFID_uC_Pullup_working.out"  "./Decode_Manchester.obj" -l"libc.a" "../lnk_msp430g2553.cmd" 
 <Linking>
-remark #10372-D: (ULP 4.1) Detected uninitialized Port 2 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
 remark #10372-D: (ULP 4.1) Detected uninitialized Port 3 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
 "../lnk_msp430g2553.cmd", line 111: warning #10374-D: Interrupt vector "PORT1" does not have an interrupt handler routine.
 "../lnk_msp430g2553.cmd", line 114: warning #10374-D: Interrupt vector "ADC10" does not have an interrupt handler routine.
@@ -24,45 +30,14 @@ remark #10372-D: (ULP 4.1) Detected uninitialized Port 3 in this project. Recomm
 "../lnk_msp430g2553.cmd", line 121: warning #10374-D: Interrupt vector "TIMER1_A1" does not have an interrupt handler routine.
 "../lnk_msp430g2553.cmd", line 122: warning #10374-D: Interrupt vector "TIMER1_A0" does not have an interrupt handler routine.
 "../lnk_msp430g2553.cmd", line 123: warning #10374-D: Interrupt vector "NMI" does not have an interrupt handler routine.
-'Finished building target: ManchesterDecoder.out'
+'Finished building target: RFID_uC_Pullup_working.out'
 ' '
 
 **** Build Finished ****
 
-**** Build of configuration Debug for project ManchesterDecoder ****
+**** Build of configuration Debug for project RFID_uC_Pullup_working ****
 
 "C:\\ti\\ccsv5\\utils\\bin\\gmake" -k all 
 gmake: Nothing to be done for `all'.
-
-**** Build Finished ****
-
-**** Build of configuration Debug for project ManchesterDecoder ****
-
-"C:\\ti\\ccsv5\\utils\\bin\\gmake" -k all 
-'Building file: ../msp430g2xx3_dco_flashcal.c'
-'Invoking: MSP430 Compiler'
-"C:/ti/ccsv5/tools/compiler/msp430_4.1.5/bin/cl430" -vmsp --abi=eabi -g --include_path="C:/ti/ccsv5/ccs_base/msp430/include" --include_path="C:/ti/ccsv5/tools/compiler/msp430_4.1.5/include" --advice:power=all --define=__MSP430G2553__ --diag_warning=225 --display_error_number --diag_wrap=off --printf_support=minimal --preproc_with_compile --preproc_dependency="msp430g2xx3_dco_flashcal.pp"  "../msp430g2xx3_dco_flashcal.c"
-"../msp430g2xx3_dco_flashcal.c", line 219: remark #1530-D: (ULP 5.1) Detected modulo operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
-'Finished building: ../msp430g2xx3_dco_flashcal.c'
-' '
-'Building target: ManchesterDecoder.out'
-'Invoking: MSP430 Linker'
-"C:/ti/ccsv5/tools/compiler/msp430_4.1.5/bin/cl430" -vmsp --abi=eabi -g --advice:power=all --define=__MSP430G2553__ --diag_warning=225 --display_error_number --diag_wrap=off --printf_support=minimal -z --stack_size=80 -m"ManchesterDecoder.map" --heap_size=80 -i"C:/ti/ccsv5/ccs_base/msp430/include" -i"C:/ti/ccsv5/tools/compiler/msp430_4.1.5/lib" -i"C:/ti/ccsv5/tools/compiler/msp430_4.1.5/include" --reread_libs --warn_sections --display_error_number --diag_wrap=off --xml_link_info="ManchesterDecoder_linkInfo.xml" --rom_model -o "ManchesterDecoder.out"  "./msp430g2xx3_dco_flashcal.obj" -l"libc.a" "../lnk_msp430g2553.cmd" 
-<Linking>
-remark #10372-D: (ULP 4.1) Detected uninitialized Port 2 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
-"../lnk_msp430g2553.cmd", line 111: warning #10374-D: Interrupt vector "PORT1" does not have an interrupt handler routine.
-remark #10372-D: (ULP 4.1) Detected uninitialized Port 3 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
-"../lnk_msp430g2553.cmd", line 114: warning #10374-D: Interrupt vector "ADC10" does not have an interrupt handler routine.
-"../lnk_msp430g2553.cmd", line 115: warning #10374-D: Interrupt vector "USCIAB0TX" does not have an interrupt handler routine.
-"../lnk_msp430g2553.cmd", line 116: warning #10374-D: Interrupt vector "USCIAB0RX" does not have an interrupt handler routine.
-"../lnk_msp430g2553.cmd", line 117: warning #10374-D: Interrupt vector "TIMER0_A1" does not have an interrupt handler routine.
-"../lnk_msp430g2553.cmd", line 118: warning #10374-D: Interrupt vector "TIMER0_A0" does not have an interrupt handler routine.
-"../lnk_msp430g2553.cmd", line 119: warning #10374-D: Interrupt vector "WDT" does not have an interrupt handler routine.
-"../lnk_msp430g2553.cmd", line 120: warning #10374-D: Interrupt vector "COMPARATORA" does not have an interrupt handler routine.
-"../lnk_msp430g2553.cmd", line 121: warning #10374-D: Interrupt vector "TIMER1_A1" does not have an interrupt handler routine.
-"../lnk_msp430g2553.cmd", line 122: warning #10374-D: Interrupt vector "TIMER1_A0" does not have an interrupt handler routine.
-"../lnk_msp430g2553.cmd", line 123: warning #10374-D: Interrupt vector "NMI" does not have an interrupt handler routine.
-'Finished building target: ManchesterDecoder.out'
-' '
 
 **** Build Finished ****
